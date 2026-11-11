@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Steam Game Recommender | Cole Pylant</title>
+  <meta name="description" content="A Steam review recommender comparing Bag-of-Words, pretrained vectors, custom Word2Vec embeddings, and LLM-assisted intent interpretation."/>
+  <link rel="stylesheet" href="../styles.css"/>
+</head>
+<body>
+<nav class="nav"><div class="container nav-inner"><a class="brand" href="../index.html">Cole Pylant</a><div class="nav-links"><a href="../index.html#work">Work</a><a href="../index.html#visualization">Visualization</a><a href="../index.html#about">About</a><a href="mailto:cdp2877@utexas.edu">Contact</a></div></div></nav>
+<header class="hero"><div class="container hero-grid">
+  <div>
+    <div class="eyebrow">NLP · Recommender Systems · Unstructured Data</div>
+    <h1>Steam Game Recommender</h1>
+    <p>Built and compared four text-based recommendation approaches using Steam user reviews, moving from lexical matching to semantic embeddings and an intent-aware recommendation pipeline.</p>
+    <div class="button-row"><a class="btn primary" href="../assets/docs/steam-game-recommender.ipynb" target="_blank">View notebook</a><a class="btn" href="../index.html#work">Back to projects</a></div>
+  </div>
+  <aside class="hero-panel"><h3>Project at a glance</h3><div class="skill-cloud"><span class="tag">Python</span><span class="tag">spaCy</span><span class="tag">Word2Vec</span><span class="tag">VADER</span><span class="tag">Cosine Similarity</span><span class="tag">LLM Intent Parsing</span></div><div class="small">Review corpus built from public Steam and SteamSpy endpoints, then cleaned and balanced to reduce template, duplicate, and low-information reviews.</div></aside>
+</div></header>
+<main>
+<section><div class="container"><div class="section-head"><div><div class="eyebrow">Problem</div><h2>Recommend games from what a user means, not just the words they type.</h2></div><p>The project tested how different text representations change recommendations when a request contains both desired attributes and something the user explicitly wants to avoid.</p></div>
+<div class="about-grid">
+  <div class="panel"><h3>Data</h3><p>Collected review and game metadata through public Steam and SteamSpy endpoints. The workflow removed checklist-template reviews, very short or mostly non-text reviews, duplicates, and games with insufficient usable review text. Reviews were capped per game so highly popular titles did not dominate the corpus.</p></div>
+  <div class="panel"><h3>Why it was difficult</h3><p>A Bag-of-Words model treats “grindy” as relevant whether the user wants grind or wants to avoid it. The project therefore became a comparison of increasingly semantic representations and, finally, explicit preference direction.</p></div>
+</div></div></section>
+<section><div class="container"><div class="section-head"><div><div class="eyebrow">Approach</div><h2>Four recommendation systems, one user request</h2></div><p>Keeping the recommendation task fixed made it possible to compare what each representation added and where it failed.</p></div>
+<div class="project-grid">
+  <div class="panel"><h3>1. Bag-of-Words</h3><p>spaCy preprocessing, document-term vectors, cosine similarity, VADER sentiment, and game-level aggregation. It produced sensible open-world recommendations but mishandled negation.</p></div>
+  <div class="panel"><h3>2. Pretrained vectors</h3><p>Replaced exact word overlap with semantic representations so related language such as “fight” and “combat” could contribute to similarity even without exact matches.</p></div>
+  <div class="panel"><h3>3. Custom Word2Vec</h3><p>Trained 100-dimensional domain-specific embeddings directly on the Steam review corpus. The model learned useful gaming relationships around performance, combat, story, and exploration.</p></div>
+  <div class="panel"><h3>4. Intent-aware model</h3><p>Used an LLM only to structure the user’s positive and negative preferences. Custom-vector retrieval and attribute-level evidence were then scored deterministically in Python.</p></div>
+</div></div></section>
+<section><div class="container"><div class="section-head"><div><div class="eyebrow">Results</div><h2>The representation changed the recommendation.</h2></div><p>Each model surfaced different titles, showing that recommendation quality depends heavily on how user intent and review language are represented.</p></div>
+<div class="about-grid">
+  <div class="panel"><h3>Intent-aware top three</h3><p><strong>Hollow Knight</strong><br/><strong>Divinity: Original Sin 2 – Definitive Edition</strong><br/><strong>Portal 2</strong></p><p>The final model separately evaluated evidence for story/immersion, exploration, combat, and repetition/grind rather than relying on one overall similarity score.</p></div>
+  <div class="panel"><h3>Key lesson</h3><p>Adding an LLM did not replace the recommender. Its useful role was narrower: interpreting the request and preserving preference direction. Similarity, evidence aggregation, and final ranking stayed in a reproducible pipeline.</p></div>
+</div></div></section>
+<section><div class="container"><div class="section-head"><div><div class="eyebrow">What this demonstrates</div><h2>Unstructured-data modeling from collection through evaluation</h2></div></div>
+<div class="meta"><span>API data collection</span><span>Text cleaning</span><span>Feature engineering</span><span>Bag-of-Words</span><span>Embeddings</span><span>Word2Vec</span><span>Sentiment analysis</span><span>Recommender systems</span><span>LLM-assisted intent parsing</span><span>Model comparison</span></div>
+</div></section>
+</main>
+<footer class="footer"><div class="container footer-inner"><div>© 2026 Cole Pylant</div><div><a href="mailto:cdp2877@utexas.edu">Email</a> · <a href="https://linkedin.com/in/colepylant" target="_blank" rel="noreferrer">LinkedIn</a></div></div></footer>
+</body></html>
